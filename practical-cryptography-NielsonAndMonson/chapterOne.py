@@ -2,13 +2,13 @@ import string
 
 
 # create shift substitution table
-def create_shift_substitutions(shift):
+def create_shift_substitutions(n):
     encoding = {}
     decoding = {}
     alphabet_size = len(string.ascii_uppercase)
     for i in range(alphabet_size):
         letter = string.ascii_uppercase[i]
-        subst_letter = string.ascii_uppercase[(i % shift) % alphabet_size]
+        subst_letter = string.ascii_uppercase[(i + n) % alphabet_size]
 
         encoding[letter] = subst_letter
         decoding[subst_letter] = letter
@@ -16,30 +16,30 @@ def create_shift_substitutions(shift):
     return encoding, decoding
 
 
-def encode(message, substitution_table):
+def encode(message, subst):
     # return "".join(substitution_table.get(x, x) for x in message)
 
     cipher = ""
     for letter in message:
-        if letter in substitution_table:
-            cipher += substitution_table[letter]
+        if letter in subst:
+            cipher += subst[letter]
         else:
             cipher += letter
 
     return cipher
 
 
-def decode(message, substitution_table):
-    return encode(message, substitution_table)
+def decode(message, subst):
+    return encode(message, subst)
 
 
-def printable_substitution(substitution_table):
+def printable_substitution(subst):
     # Sort by source character so things are alphabetized.
-    mapping = sorted(substitution_table.items())
+    mapping = sorted(subst.items())
 
     # Then create two lines: source above, target beneath
     alphabet_line = " ".join(letter for letter, _ in mapping)
-    cipher_line = " ".join(substitution_letter for _, substitution_letter in mapping)
+    cipher_line = " ".join(subst for _, subst in mapping)
     return "{}\n{}".format(alphabet_line, cipher_line)
 
 
