@@ -18,7 +18,7 @@ aesDecryptor = aesCipher.decryptor()
 nist_kats = [('f34481ec3cc627bacd5dc3fb08f273e6', '0336763e966d92595a567cc9ce537f5e'),
              ('9798c4640bad75c7c3227db910174e72', 'a9a1631bf4996954ebc093957b234589')]
 
-# 16-byte test key of all zero's
+# 16-byte test-private key of all zero's
 test_key = bytes.fromhex('00000000000000000000000000000000')
 
 aesCipher2 = Cipher(algorithms.AES(test_key),
@@ -27,7 +27,7 @@ aesCipher2 = Cipher(algorithms.AES(test_key),
 aesEncryptor2 = aesCipher.encryptor()
 aesDecryptor2 = aesCipher.decryptor()
 
-# test each input
+# test-private each input
 for index, kat in enumerate(nist_kats):
     plaintext, want_ciphertext = kat
     plaintext_bytes = bytes.fromhex(plaintext)

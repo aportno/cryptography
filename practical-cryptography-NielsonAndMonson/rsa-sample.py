@@ -83,7 +83,8 @@ def main():
                 with open(private_key_file_temp, "rb") as private_key_file_object:
                     private_key = serialization.load_pem_private_key(
                         private_key_file_object.read(),
-                        backend=default_backend()
+                        backend=default_backend(),
+                        password=None
                     )
                     private_key_file = private_key_file_temp
                     print("\nPrivate key file loaded.\n")
