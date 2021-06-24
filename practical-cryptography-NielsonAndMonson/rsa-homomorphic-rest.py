@@ -36,7 +36,6 @@ encrypted_b = simple_rsa_encrypt(message_b, public_key)
 
 # decrypting the product of two encrypted ciphers == the product of two plaintexts
 encrypted_product = (encrypted_a * encrypted_b) % public_mod
-
 decrypted_product = simple_rsa_decrypt(encrypted_product, private_key)
 
 # message_a * message_b = c
