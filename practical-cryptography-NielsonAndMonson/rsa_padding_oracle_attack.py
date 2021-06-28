@@ -32,6 +32,7 @@ class FakeOracle:
         recovered = int_to_bytes(recovered_as_int, self.private_key.key_size // 8)
         return recovered[0:2] == bytes([0, 2])
 
+
 class RSAOracleAttacker:
     def __init__(self, public_key, oracle):
         self.public_key = public_key
@@ -40,9 +41,24 @@ class RSAOracleAttacker:
     def _step1_blinding(self, c):
         self.c0 = c
 
-        self.B = 2**(self.public_key.key_size-16)
+        self.B = 2 ** (self.public_key.key_size - 16)
         self.s = [1]
-        self.M = [[Interval(2*self.B, (3*self.B)-1)]]
+        self.M = [[Interval(2 * self.B, (3 * self.B) - 1)]]
 
         self.i = 1
         self.n = self.public_key.public_numbers().n
+
+    def _find_s(self, start_s, s_max = None):
+        si = start_s
+        ci = simple_rsa_encrypt(si, self.public_key)
+
+        while not self.oracle((self.c0 * ci) % self.n):
+            si += 1
+            if s_max and (si > s_max):
+                return None
+            ci = simple_rsa_encrypt(si, self.public_key)
+        return si
+
+    def _step2a_start_the_search(self):
+        si = self._find_s(start_s=gmpy2.c_div(self.n, 3*self.B))
+        return si
