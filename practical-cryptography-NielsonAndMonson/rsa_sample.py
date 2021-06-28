@@ -16,9 +16,12 @@ def simple_rsa_decrypt(c, privatekey):
     return gmpy2.powmod(c, numbers.d, numbers.public_numbers.n)
 
 
-def int_to_bytes(i):
+def int_to_bytes(i, min_size=None):
     i = int(i)
-    return i.to_bytes((i.bit_length()+7)//8, byteorder='big')
+    b = i.to_bytes((i.bit_length()+7)//8, byteorder='big')
+    if min_size is not None and len(b) < min_size:
+        b = b'\x00'*(min_size-len(b)) + b
+    return b
 
 
 def bytes_to_int(b):
