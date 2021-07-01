@@ -1,2 +1,2 @@
 # cryptography
-Cryptography algorithms and protocols
+Cryptographic algorithms and protocols
