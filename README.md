@@ -144,7 +144,55 @@ And if we know that _N_ was the product of two prime numbers _P1_ and _P2_, then
 Lastly, we know **phi** of a prime is equal to prime - 1, thus:
 * **phi** N = (_P1_-1) * (_P2_-1)
 
+Cocks coined this as the trapdoor for solving **phi**. If you know the factorization for solving _N_, then finding **phi** _N_ is easy.
+
+Example:
+* The prime factors of 77 = 7 * 11
+* So **phi** 77 = (7-1) * (11-1) = 6 * 10 = 60
+
+He connected the **phi function** to modular exponentiation by using _Euler's theorem_:
+* _m_ <sup> **phi** _n_</sup> = 1 mod _n_
+* Pick any two numbers that do not share a common factor, say m = 5, and n = 8
+* Substitute, 5<sup> **phi** 8</sup> = 1 mod _8_
+    * **phi** 8 = 4 as computed earlier
+* Simplify, 5 <sup>4</sup> = 1 mod 8
+    * 625 = 1 mod 8
+
+Cocks added two modifactions to Euler's theorem:
+* Added a k parameter to the exponent
+* Multiplied _m_ to both sides of the equation
+
+Resulting in:
+* _m_ * _m_ <sup> k * **phi** n </sup> = 1 * _m_ mod _n_
+* simplified: _m_ * _m_ <sup> k * **phi** n </sup> = _m_ mod _n_, since 1 * m = m
+* and since we're multiplying _m_ * _m_, we can add a +1 to the exponent and remove _m_ from the base multiplication
+* finally; _m_ <sup> k * **phi** n + 1 </sup> = _m_ mod _n_
+
+We can now finally calculate _d_ = (k * **phi** n + 1) / e only if the factorization of _n_ is known.
+
+Turning back to Alice and Bob
+* Say Bob has a message he converted into a number, _m_, using a padding scheme
+* Then Alice generates her public and private key as follows
+    * She generates two random prime numbers of similar size, _p1_ = 53, _p2_ = 59
+    * Multiplies them together, 53 * 59 = 3127 = _n_
+    * Then calculates **phi** _n_ easily because she knows the factorization of _n_
+        * **phi** _n_ = **phi** _p1_ * **phi** _p2_
+        * _p1_ and _p2_ are primes so **phi** of each p - 1 = (53-1) * (59-1) = 52 * 58
+        * so **phi** _n_ = 3016
+* Next she picks some small public exponent, _e_, with the condition that she must pick a number that does not share a factor with **phi** _n_
+    * In this case we will use _e_ = 3
+* Finally, she finds the value of her private exponent, _d_
+    * _d_ = 2 (3016) + 1 / 3 = 2011
+* She can hide everything except the value of _n_ and _e_ because they make up her public key
+* She sends the public key to Bob to lock his message (say, number 89) with
+    * Bob does this by taking his message, _m_ <sup> _e_ </sup> mod _n_
+        * = 89 <sup>3</sup> mod 3127 = 1394
+    * This results in an encrypted message, _c_ = 1394
+    * He sends this number back to Alice
+* Alice decrypts this message using her private key _d_ = 2011
+    * 1394 <sup> 2011 </sup> = 89 mod 3127 = 89, which is Bobs original message!
 
 
+Notice that Eve, or anyone else with _n_, _c_and _e_ can only find _d_ if they can calcualte **phi** _N_, which requires they know the prime factorization of _N_. With a large enough _N_, Alice can be sure it will take hundreds of years to solve this if _N_ is large enough.
 
-
+Cocks discovery was immediately deemed classified, until 1977 it was rederived by Ron Rivest, Adi Shamir and Len Adleman, which is why it is now known as RSA.
