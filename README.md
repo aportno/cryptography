@@ -61,10 +61,6 @@ And now the trick; Alice takes Bob's result (of 12) and raises it to the power o
 
 ## RSA
 
-## Whirlpool
-
-## RIPEMD-160
-
 Intuition:
 
 Alice generates a private key by randomly selecting a color, say red. Then assume Alice can use some "color machine" to find the complement of her red and no body else has access to this. The results in cyan which sends to Bob as her public key. Remember, at all times we assume Eve intercepts all communication between Alice and Bob.
@@ -197,3 +193,8 @@ Turning back to Alice and Bob
 Notice that Eve, or anyone else with _n_, _c_and _e_ can only find _d_ if they can calcualte **phi** _N_, which requires they know the prime factorization of _N_. With a large enough _N_, Alice can be sure it will take hundreds of years to solve this if _N_ is large enough.
 
 Cocks discovery was immediately deemed classified, until 1977 it was rederived by Ron Rivest, Adi Shamir and Len Adleman, which is why it is now known as RSA.
+
+
+## Whirlpool
+
+## RIPEMD-160
