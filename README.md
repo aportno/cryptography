@@ -1,10 +1,3 @@
-# Hash Functions
-* Message Digest (MD)
-* Secure Hash Function (SHA)
-* RIPEMD
-* Whirlpool
-* BLAKE
-
 # Frequency stability property
 Coined by Richard von Mises in 1919, the frequency stability property defines an infinite sequence of zeros and ones as not biased (i.e. random) if the frequency of zeroes goes to 1/2 and every subsequence we can select from it by a "proper" method of selection is also not biased.
 
@@ -54,6 +47,8 @@ And now the trick; Alice takes Bob's result (of 12) and raises it to the power o
 
 ## SHA256
 
+## BLAKE2
+
 ## BLAKE3
 
 ## X11
@@ -65,6 +60,10 @@ And now the trick; Alice takes Bob's result (of 12) and raises it to the power o
 ## NIST5
 
 ## RSA
+
+## Whirlpool
+
+## RIPEMD-160
 
 Intuition:
 
