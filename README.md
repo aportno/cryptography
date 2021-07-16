@@ -54,6 +54,8 @@ And now the trick; Alice takes Bob's result (of 12) and raises it to the power o
 
 ## SHA256
 
+## BLAKE3
+
 ## X11
 
 ## X13
